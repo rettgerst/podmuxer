@@ -39,7 +39,7 @@ export default function Home() {
 	useEffect(() => {
 		const origin = window.location.origin;
 
-		const newUrl = `${origin}/podcast?${optionParams.toString()}`;
+		const newUrl = `${origin}/api/podcast?${optionParams.toString()}`;
 
 		setFilteredPodcastLink(newUrl);
 	}, [optionParams]);
