@@ -55,6 +55,30 @@ export default function FilterOptionForm({
 					}}
 				/>
 			</label>
+
+			<br />
+
+			<label>
+				Channel Image
+				<input
+					type="text"
+					value={value.contentReplacement?.channel?.image}
+					onChange={e => {
+						if (!onChange) return;
+						onChange({
+							...value,
+							contentReplacement: {
+								...value.contentReplacement,
+								channel: {
+									...value.contentReplacement?.channel,
+									image: e.target.value
+								}
+							}
+						});
+					}}
+				/>
+			</label>
+
 			<br />
 			<label>
 				Item Image

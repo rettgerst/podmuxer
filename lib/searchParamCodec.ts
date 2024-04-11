@@ -22,6 +22,13 @@ export function encodeOptions(options: Options): URLSearchParams {
 		);
 	}
 
+	if (filterOptions.contentReplacement?.channel?.image) {
+		searchParams.set(
+			'channelImageReplacement',
+			filterOptions.contentReplacement.channel.image
+		);
+	}
+
 	if (filterOptions.contentReplacement?.items?.image) {
 		searchParams.set(
 			'imageReplacement',
@@ -53,7 +60,8 @@ export function decodeOptions(searchParams: URLSearchParams): Options {
 		contentReplacement: {
 			channel: {
 				title: searchParams.get('titleReplacement') || '',
-				description: searchParams.get('descriptionReplacement') || ''
+				description: searchParams.get('descriptionReplacement') || '',
+				image: searchParams.get('channelImageReplacement') || ''
 			},
 			items: {
 				image: searchParams.get('imageReplacement') || ''

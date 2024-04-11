@@ -5,6 +5,7 @@ export interface FilterOptions {
 		channel?: {
 			title?: string;
 			description?: string;
+			image?: string;
 		};
 		items?: {
 			titleRewrite?: [RegExp, string];
@@ -39,6 +40,7 @@ export default function filterPodcast(
 	inputDocument: string,
 	options: FilterOptions
 ) {
+	console.log('filterPodcast', options);
 	const $ = cheerio.load(inputDocument, { xmlMode: true });
 
 	const { contentReplacement, titleRegex } = options;
@@ -50,6 +52,12 @@ export default function filterPodcast(
 	if (options.contentReplacement?.channel?.description) {
 		$('rss channel > description').text(
 			options.contentReplacement.channel.description
+		);
+	}
+
+	if (options.contentReplacement?.channel?.image) {
+		$('rss channel > image > url').text(
+			options.contentReplacement.channel.image
 		);
 	}
 
