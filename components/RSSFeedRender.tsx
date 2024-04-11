@@ -24,7 +24,11 @@ export default function RSSFeedRender({ xml }: RSSFeedRenderProps) {
 		<div className={styles.RSSFeed}>
 			<div className={styles.Header}>
 				<div className={styles.Left}>
-					<img src={image} alt="Podcast Logo" />
+					<img
+						style={{ width: 200 }}
+						src={image}
+						alt="Podcast Logo"
+					/>
 				</div>
 				<div className={styles.Right}>
 					<h1>{title}</h1>

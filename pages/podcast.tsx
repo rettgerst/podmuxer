@@ -5,38 +5,14 @@ import {
 } from 'next';
 
 import filterPodcast, { FilterOptions } from 'lib/filterPodcast';
+import { decodeOptions } from 'lib/searchParamCodec';
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-	const url = ctx.query.inputUrl as string;
+	const params = new URL(ctx.req.headers.host + ctx.resolvedUrl).searchParams;
 
-	const inputXml = await fetch(url).then(res => res.text());
+	const { inputUrl, filterOptions } = decodeOptions(params);
 
-	const titleReplacement = ctx.query.titleReplacement as string;
-	const descriptionReplacement = ctx.query.descriptionReplacement as string;
-	const imageReplacement = ctx.query.imageReplacement as string;
-
-	const titleRegexWhitelist = ctx.query.titleRegexWhitelist as string;
-	const titleRegexBlacklist = ctx.query.titleRegexBlacklist as string;
-
-	const filterOptions: FilterOptions = {
-		contentReplacement: {
-			channel: {
-				title: titleReplacement,
-				description: descriptionReplacement
-			},
-			items: {
-				image: imageReplacement
-			}
-		},
-		titleRegex: {
-			whitelist: titleRegexWhitelist
-				? new RegExp(titleRegexWhitelist)
-				: undefined,
-			blacklist: titleRegexBlacklist
-				? new RegExp(titleRegexBlacklist)
-				: undefined
-		}
-	};
+	const inputXml = await fetch(inputUrl).then(res => res.text());
 
 	const filteredXml = filterPodcast(inputXml, filterOptions);
 
