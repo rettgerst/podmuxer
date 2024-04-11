@@ -7,7 +7,8 @@ export default async function podcastApi(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const params = new URL(req.headers.host! + req.url).searchParams;
+	const url = 'http://' + req.headers.host! + req.url;
+	const params = new URL(url).searchParams;
 
 	const { inputUrl, filterOptions } = decodeOptions(params);
 
