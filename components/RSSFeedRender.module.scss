@@ -1,0 +1,31 @@
+.RSSFeed {
+	.Header {
+		display: flex;
+		flex-direction: row;
+		margin-bottom: 1em;
+
+		.Left {
+		}
+
+		.Right {
+			padding: 1em;
+			text-align: left;
+		}
+	}
+
+	max-width: 600px;
+	margin: auto;
+	text-align: center;
+
+	.Feed {
+		.Item {
+			text-align: left;
+
+			background-color: #111;
+			border: 1px solid #222;
+			padding: 1em;
+
+			margin-bottom: 1em;
+		}
+	}
+}
