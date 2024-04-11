@@ -37,12 +37,14 @@ export default function Home() {
 	const [filteredPodcastLink, setFilteredPodcastLink] = useState('');
 
 	useEffect(() => {
+		if (!feedUrl) return setFilteredPodcastLink('');
+
 		const origin = window.location.origin;
 
 		const newUrl = `${origin}/api/podcast?${optionParams.toString()}`;
 
 		setFilteredPodcastLink(newUrl);
-	}, [optionParams]);
+	}, [feedUrl, optionParams]);
 
 	return (
 		<>
@@ -59,9 +61,11 @@ export default function Home() {
 
 				<FilterOptionForm value={filter} onChange={setFilter} />
 
-				<a href={filteredPodcastLink} target="_blank">
-					{filteredPodcastLink}
-				</a>
+				{filteredPodcastLink && (
+					<a href={filteredPodcastLink} target="_blank">
+						{filteredPodcastLink}
+					</a>
+				)}
 
 				{filteredXml ? (
 					<RSSFeedRender xml={filteredXml} />

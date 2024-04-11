@@ -19,8 +19,12 @@ export default function useFeed(url: string) {
 			},
 			body: JSON.stringify({ feedUrl: debouncedUrl })
 		})
-			.then(response => response.text())
-			.then(text => setFetchedValue(text));
+			.then(response => {
+				if (response.ok) return response.text();
+				else throw new Error('Failed to fetch feed');
+			})
+			.then(text => setFetchedValue(text))
+			.catch(() => setFetchedValue(null));
 	}, [debouncedUrl]);
 
 	return fetchedValue;
