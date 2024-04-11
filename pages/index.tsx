@@ -1,8 +1,7 @@
 import { Inter } from 'next/font/google';
 import Head from 'next/head';
-import Image from 'next/image';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import filterPodcast from 'lib/filterPodcast';
 import { encodeOptions } from 'lib/searchParamCodec';
@@ -35,8 +34,14 @@ export default function Home() {
 		});
 	}, [feedUrl, filter]);
 
-	const filteredPodcastLink = useMemo(() => {
-		return document.location.origin + `/podcast?${optionParams}`;
+	const [filteredPodcastLink, setFilteredPodcastLink] = useState('');
+
+	useEffect(() => {
+		const origin = window.location.origin;
+
+		const newUrl = `${origin}/podcast?${optionParams.toString()}`;
+
+		setFilteredPodcastLink(newUrl);
 	}, [optionParams]);
 
 	return (
